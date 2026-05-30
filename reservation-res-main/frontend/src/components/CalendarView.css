@@ -1,0 +1,107 @@
+.calendar-view-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 15px;
+  border: 1px solid var(--border-color);
+}
+
+.calendar-wrapper .react-calendar {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  color: var(--text-color);
+}
+
+.react-calendar__tile {
+  position: relative;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot-container {
+  position: absolute;
+  bottom: 5px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: #ff4757;
+  border-radius: 50%;
+}
+
+.react-calendar__tile--active {
+  background: var(--text-color) !important;
+  color: var(--bg-color) !important;
+  border-radius: 8px;
+}
+
+.react-calendar__navigation button {
+  color: var(--text-color);
+  font-size: 1.2rem;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  color: var(--secondary-text);
+  text-decoration: none;
+}
+
+.reservations-list-side {
+  border-left: 1px solid var(--border-color);
+  padding-left: 30px;
+}
+
+.mini-res-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.mini-res-card {
+  padding: 15px;
+  background: var(--accent-color);
+  border-radius: 10px;
+}
+
+.mini-res-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.status-badge.pending { background: #fff3e0; color: #ef6c00; }
+.status-badge.approved { background: #e8f5e9; color: #2e7d32; }
+.status-badge.rejected { background: #ffebee; color: #c62828; }
+
+@media (max-width: 900px) {
+  .calendar-view-container {
+    grid-template-columns: 1fr;
+  }
+  .reservations-list-side {
+    border-left: none;
+    border-top: 1px solid var(--border-color);
+    padding-left: 0;
+    padding-top: 30px;
+  }
+}
