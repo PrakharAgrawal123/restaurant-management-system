@@ -479,7 +479,7 @@ nav svg {
 .heading {
   font-weight: 300;
   font-size: 3.5rem;
-  color: #111;
+  color: var(--text-color);
   margin-bottom: 10px;
   letter-spacing: 2px;
 }
@@ -488,7 +488,7 @@ nav svg {
 .about .container .banner .top p {
   font-size: 18px;
   font-weight: 400;
-  color: #555;
+  color: var(--secondary-text);
   margin-bottom: 20px;
   letter-spacing: 1px;
 }
@@ -498,7 +498,7 @@ nav svg {
   font-size: 16px;
   line-height: 1.9;
   letter-spacing: 0.4px;
-  color: #444;
+  color: var(--text-color);
   max-width: 600px;
   text-align: left;
   /* 🔥 FIXED */
@@ -513,7 +513,7 @@ nav svg {
 /* BUTTON */
 .about .container .banner a {
   margin-top: 25px;
-  border: 1px solid #111;
+  border: 1px solid var(--text-color);
   padding: 10px 28px;
   border-radius: 30px;
   display: flex;
@@ -522,27 +522,27 @@ nav svg {
   justify-content: center;
   text-decoration: none;
   font-size: 15px;
-  color: #111;
+  color: var(--text-color);
   transition: all 0.3s ease;
 }
 
 .about .container .banner a span {
   margin-left: 10px;
   padding: 6px;
-  background: #111;
+  background: var(--text-color);
   border-radius: 50%;
-  color: #fff;
+  color: var(--bg-color);
   transition: all 0.3s ease;
 }
 
 .about .container .banner a:hover {
-  color: #fff;
-  background: #111;
+  color: var(--bg-color);
+  background: var(--text-color);
 }
 
 .about .container .banner a:hover span {
-  background: #fff;
-  color: #111;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 /* RESPONSIVE */
@@ -804,7 +804,7 @@ nav svg {
 }
 
 .team .container .heading_section p {
-  color: #333;
+  color: var(--secondary-text);
   font-size: 18px;
   font-weight: 300;
   margin-bottom: 1.5rem;
@@ -837,7 +837,7 @@ nav svg {
 .team .container .team_container .card p {
   font-size: 18px;
   font-weight: 300;
-  color: #333;
+  color: var(--secondary-text);
 }
 
 @media (max-width: 1520px) {
@@ -911,7 +911,7 @@ nav svg {
 }
 
 .who_are_we .container .text_banner .card p {
-  color: #333;
+  color: var(--text-color);
   font-size: 25px;
   font-weight: 200;
 }
@@ -987,7 +987,7 @@ nav svg {
 /******************* NOT FOUND PAGE STYLING **************/
 /**********************************************************************************************************************/
 footer {
-  background: #f9fbf2;
+  background: var(--accent-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1019,7 +1019,7 @@ footer .container .banner:first-child::after {
   bottom: 0;
   width: 100%;
   height: 3px;
-  background: #111;
+  background: var(--text-color);
 }
 
 footer .container .banner:first-child .left {
@@ -1028,15 +1028,15 @@ footer .container .banner:first-child .left {
 
 footer .container .banner:last-child .left {
   font-size: 18px;
-  color: #333;
+  color: var(--secondary-text);
 }
 
 footer .container .banner:last-child .left a {
-  color: #333;
+  color: var(--secondary-text);
 }
 
 footer .container .banner:last-child .left a:hover {
-  color: #111;
+  color: var(--text-color);
   transition: 0.3s;
   font-weight: bold;
 }
@@ -1044,7 +1044,7 @@ footer .container .banner:last-child .left a:hover {
 footer .container .banner .right {
   text-align: end;
   font-size: 18px;
-  color: #333;
+  color: var(--secondary-text);
 }
 
 @media (max-width: 1520px) {
@@ -1155,18 +1155,18 @@ footer .container .banner .right {
 }
 
 .reservation .container .banner .reservation_form_box form div input::placeholder {
-  color: #222;
+  color: var(--secondary-text);
 }
 
 .reservation .container .banner .reservation_form_box h1 {
   font-weight: 200;
   font-size: 2.75rem;
-  color: #111;
+  color: var(--text-color);
   text-align: center;
 }
 
 .reservation .container .banner .reservation_form_box p {
-  color: #333;
+  color: var(--secondary-text);
   font-size: 18px;
   font-weight: 300;
   text-align: center;
@@ -1183,7 +1183,7 @@ footer .container .banner .right {
 }
 
 .reservation .container .banner .reservation_form_box form button {
-  border: 1px solid black;
+  border: 1px solid var(--text-color);
   padding: 8px 36px;
   border-radius: 30px;
   display: flex;
@@ -1193,7 +1193,7 @@ footer .container .banner .right {
   justify-content: center;
   text-decoration: none;
   font-size: 13px;
-  color: #111;
+  color: var(--text-color);
   background: transparent;
   margin-top: 30px;
 }
@@ -1201,9 +1201,9 @@ footer .container .banner .right {
 .reservation .container .banner .reservation_form_box form button span {
   margin-left: 1rem;
   padding: 3px;
-  background: #111;
+  background: var(--text-color);
   border-radius: 100%;
-  color: #fff;
+  color: var(--bg-color);
 }
 
 @media (max-width: 1520px) {
@@ -1302,7 +1302,7 @@ footer .container .banner .right {
 }
 
 .notFound .container a {
-  border: 1px solid black;
+  border: 1px solid var(--text-color);
   padding: 8px 28px;
   border-radius: 30px;
   display: flex;
@@ -1312,26 +1312,26 @@ footer .container .banner .right {
   justify-content: center;
   text-decoration: none;
   font-size: 15px;
-  color: #111;
+  color: var(--text-color);
 }
 
 .notFound .container a span {
   margin-left: 1rem;
   padding: 6px;
-  background: #111;
+  background: var(--text-color);
   border-radius: 100%;
-  color: #fff;
+  color: var(--bg-color);
 }
 
 .notFound .container a:hover {
-  color: #fff;
-  background: #111;
+  color: var(--bg-color);
+  background: var(--text-color);
   transition: ease-in-out 0.3s;
 }
 
 .notFound .container a:hover span {
-  background: #fff;
-  color: #111;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 @media (max-width: 600px) {
@@ -1447,15 +1447,15 @@ footer .container .banner .right {
 .dashboard-container {
   display: flex;
   min-height: 100vh;
-  background: #0a0a0a;
-  color: white;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 .dashboard-sidebar {
   width: 280px;
-  background: #111;
+  background: var(--nav-bg);
   padding: 2rem;
-  border-right: 1px solid #222;
+  border-right: 1px solid var(--border-color);
 }
 
 .profile-section {
@@ -1510,10 +1510,10 @@ footer .container .banner .right {
 }
 
 .reservation-card {
-  background: #1a1a1a;
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 1.5rem;
-  border: 1px solid #222;
+  border: 1px solid var(--border-color);
   position: relative;
 }
 
@@ -1536,21 +1536,23 @@ footer .container .banner .right {
   align-items: center;
   gap: 0.8rem;
   margin-bottom: 0.8rem;
-  color: #ccc;
+  color: var(--secondary-text);
 }
 
 /* Admin Dashboard */
 .admin-dashboard {
   display: flex;
   min-height: 100vh;
-  background: #f4f7f6;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 .admin-sidebar {
   width: 260px;
-  background: #1e1e2d;
-  color: white;
+  background: var(--nav-bg);
+  color: var(--text-color);
   padding: 2rem 0;
+  border-right: 1px solid var(--border-color);
 }
 
 .admin-brand {
@@ -1560,14 +1562,14 @@ footer .container .banner .right {
   padding: 0 2rem 2rem;
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary);
+  color: var(--primary-color);
 }
 
 .admin-nav button {
   width: 100%;
   background: none;
   border: none;
-  color: #a2a3b7;
+  color: var(--secondary-text);
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
@@ -1577,8 +1579,8 @@ footer .container .banner .right {
 }
 
 .admin-nav button:hover, .admin-nav button.active {
-  background: #2b2b40;
-  color: white;
+  background: var(--glass);
+  color: var(--text-color);
 }
 
 .admin-main {
@@ -1595,13 +1597,14 @@ footer .container .banner .right {
 }
 
 .stat-card {
-  background: white;
+  background: var(--card-bg);
   padding: 1.5rem;
   border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 1rem;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border: 1px solid var(--border-color);
 }
 
 .stat-icon {
@@ -1619,10 +1622,11 @@ footer .container .banner .right {
 .stat-icon.purple { background: #f3e5f5; color: #9c27b0; }
 
 .table-container {
-  background: white;
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border: 1px solid var(--border-color);
 }
 
 table {
@@ -1633,13 +1637,13 @@ table {
 th {
   text-align: left;
   padding: 1rem;
-  color: #555;
-  border-bottom: 2px solid #f4f7f6;
+  color: var(--secondary-text);
+  border-bottom: 2px solid var(--border-color);
 }
 
 td {
   padding: 1rem;
-  border-bottom: 1px solid #f4f7f6;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .status-badge {
@@ -1787,18 +1791,18 @@ td {
 }
 
 .success-links a:first-child {
-  background: #111;
-  color: white;
+  background: var(--text-color);
+  color: var(--bg-color);
 }
 
 .secondary-link {
-  border: 1px solid #111;
-  color: #111;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
 }
 
 .secondary-link:hover {
-  background: #111;
-  color: white;
+  background: var(--text-color);
+  color: var(--bg-color);
 }
 
 .search-filter-wrapper {
