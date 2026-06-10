@@ -1,19 +1,26 @@
 .calendar-view-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.2fr 1fr;
   gap: 30px;
   background: var(--card-bg);
   padding: 30px;
   border-radius: 15px;
   border: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
 .calendar-wrapper .react-calendar {
   width: 100%;
-  border: none;
-  background: transparent;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.02);
   font-family: inherit;
   color: var(--text-color);
+  border-radius: 12px;
+  padding: 15px;
+}
+
+[data-theme="light"] .calendar-wrapper .react-calendar {
+  background: #ffffff;
 }
 
 .react-calendar__tile {
@@ -23,22 +30,27 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: 8px;
 }
 
 .dot-container {
   position: absolute;
-  bottom: 5px;
+  bottom: 4px;
   display: flex;
   justify-content: center;
+  gap: 3px;
   width: 100%;
 }
 
 .dot {
-  width: 6px;
-  height: 6px;
-  background: #ff4757;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
 }
+
+.pending-dot { background: #f39c12; }
+.confirmed-dot { background: #3498db; }
+.other-dot { background: #2ecc71; }
 
 .react-calendar__tile--active {
   background: var(--text-color) !important;
@@ -48,51 +60,166 @@
 
 .react-calendar__navigation button {
   color: var(--text-color);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .react-calendar__month-view__weekdays__weekday {
   color: var(--secondary-text);
   text-decoration: none;
+  font-weight: 600;
 }
 
 .reservations-list-side {
   border-left: 1px solid var(--border-color);
   padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Calendar Filters styling */
+.calendar-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.calendar-filter-select {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.no-bookings-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary-text);
+  text-align: center;
+  padding: 40px 10px;
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: 10px;
+  border: 1px dashed var(--border-color);
+}
+
+.no-bookings-placeholder p {
+  margin-top: 10px;
+  font-size: 0.95rem;
 }
 
 .mini-res-list {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  max-height: 400px;
+  gap: 12px;
+  max-height: 250px;
   overflow-y: auto;
+  margin-bottom: 20px;
+  padding-right: 5px;
 }
 
 .mini-res-card {
   padding: 15px;
-  background: var(--accent-color);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+[data-theme="light"] .mini-res-card {
+  background: #f8f9fa;
+}
+
+.mini-res-card:hover {
+  transform: translateX(4px);
+  border-color: var(--text-color);
+}
+
+.mini-res-card.selected {
+  border-color: var(--text-color);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .mini-res-card.selected {
+  background: #e9ecef;
 }
 
 .mini-res-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+}
+
+.mini-res-body {
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+  display: flex;
+  gap: 6px;
+  align-items: center;
 }
 
 .status-badge {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   padding: 3px 8px;
   border-radius: 10px;
   text-transform: uppercase;
+  font-weight: 600;
 }
 
-.status-badge.pending { background: #fff3e0; color: #ef6c00; }
-.status-badge.approved { background: #e8f5e9; color: #2e7d32; }
-.status-badge.rejected { background: #ffebee; color: #c62828; }
+.status-badge.pending { background: rgba(243, 156, 18, 0.15); color: #f39c12; }
+.status-badge.confirmed { background: rgba(52, 152, 219, 0.15); color: #3498db; }
+.status-badge.completed { background: rgba(46, 204, 113, 0.15); color: #2ecc71; }
+.status-badge.cancelled { background: rgba(231, 76, 60, 0.15); color: #e74c3c; }
+
+/* Selected Booking details */
+.calendar-selected-details {
+  border-top: 1px solid var(--border-color);
+  padding-top: 20px;
+  margin-top: auto;
+}
+
+.calendar-selected-details h4 {
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: var(--secondary-text);
+}
+
+.detail-status-update {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.detail-status-update label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.status-dropdown-update {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-color);
+  font-weight: 500;
+}
 
 @media (max-width: 900px) {
   .calendar-view-container {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import SearchFilter from "../../components/SearchFilter";
 import toast from "react-hot-toast";
 
@@ -14,9 +14,7 @@ const ManageOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const { data } = await axios.get("http://localhost:4000/api/v1/order/admin/all", {
-        withCredentials: true,
-      });
+      const { data } = await api.get("/order/admin/all");
       setOrders(data.orders);
       setFilteredOrders(data.orders);
     } catch (error) {
@@ -28,10 +26,7 @@ const ManageOrders = () => {
 
   const handleStatusUpdate = async (id, newStatus) => {
     try {
-      await axios.put(`http://localhost:4000/api/v1/order/admin/update/${id}`, 
-        { status: newStatus }, 
-        { withCredentials: true }
-      );
+      await api.put(`/order/admin/update/${id}`, { status: newStatus });
       toast.success("Order status updated");
       fetchOrders();
     } catch (error) {

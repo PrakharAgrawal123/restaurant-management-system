@@ -8,6 +8,7 @@ import {
   getMyReservations,
   cancelReservation,
   forgotPassword,
+  changePassword,
 } from "../controller/userController.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
@@ -19,6 +20,7 @@ router.post("/password/forgot", forgotPassword);
 router.get("/logout", isAuthenticated, logout);
 router.get("/me", isAuthenticated, getMyProfile);
 router.put("/me/update", isAuthenticated, updateProfile);
+router.put("/password/update", isAuthenticated, changePassword);
 router.get("/myreservations", isAuthenticated, getMyReservations);
 router.put("/reservation/cancel/:id", isAuthenticated, cancelReservation);
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -17,13 +17,9 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        "http://localhost:5000/api/v1/user/register",
-        { name, email, password, role },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
+      const { data } = await api.post(
+        "/user/register",
+        { name, email, password, role }
       );
       toast.success(data.message);
       setName("");

@@ -1,6 +1,7 @@
 import ErrorHandler from "../middlewares/error.js";
 import { Reservation } from "../models/reservation.js";
 import { User } from "../models/user.js";
+import { createNotification } from "./notificationController.js";
 
 // Get All Reservations (Admin)
 export const getAllReservations = async (req, res, next) => {
@@ -23,6 +24,13 @@ export const updateReservationStatus = async (req, res, next) => {
 
     reservation.status = req.body.status;
     await reservation.save();
+
+    // Send in-app notification
+    await createNotification(
+      reservation.user,
+      "Reservation Status: " + reservation.status,
+      `Your reservation for ${reservation.date} at ${reservation.time} has been updated to ${reservation.status}.`
+    );
 
     res.status(200).json({
       success: true,

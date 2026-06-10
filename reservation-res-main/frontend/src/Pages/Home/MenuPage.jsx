@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import toast from "react-hot-toast";
 import MenuCard from "../../components/MenuCard";
 import Cart from "../../components/Cart";
@@ -16,7 +16,7 @@ const MenuPage = () => {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5000/api/v1/menu/all");
+        const { data } = await api.get("/menu/all");
         setMenuItems(data.menuItems);
       } catch (error) {
         toast.error("Failed to fetch menu");
@@ -56,7 +56,7 @@ const MenuPage = () => {
     // In a real app, you'd let the user select a branch here too.
     // For this demo, I'll use a hardcoded branch or the first one.
     try {
-      const branchesRes = await axios.get("http://localhost:5000/api/v1/branch/all");
+      const branchesRes = await api.get("/branch/all");
       const branchId = branchesRes.data.branches[0]?._id;
 
       if (!branchId) {
@@ -64,11 +64,11 @@ const MenuPage = () => {
         return;
       }
 
-      await axios.post("http://localhost:5000/api/v1/order/new", {
+      await api.post("/order/new", {
         branch: branchId,
         items: cart.map(i => ({ menuItem: i._id, quantity: i.quantity })),
         orderType: "Dine-in"
-      }, { withCredentials: true });
+      });
 
       toast.success("Order placed successfully!");
       setCart([]);

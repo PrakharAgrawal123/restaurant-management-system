@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import api from "../utils/api";
 
 const AuthContext = createContext();
 
@@ -10,10 +10,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:5000/api/v1/user/me",
-        { withCredentials: true }
-      );
+      const { data } = await api.get("/user/me");
       setUser(data.user);
       setIsAuthenticated(true);
     } catch (error) {

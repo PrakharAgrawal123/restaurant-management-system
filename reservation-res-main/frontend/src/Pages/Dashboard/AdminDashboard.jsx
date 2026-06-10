@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
@@ -14,13 +14,15 @@ import {
   Trash2,
   Utensils,
   MapPin,
-  BarChart2
+  BarChart2,
+  MessageSquare
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import AdminAnalytics from "./AdminAnalytics";
 import ManageOrders from "./ManageOrders";
 import ManageBranches from "./ManageBranches";
 import CalendarView from "../../components/CalendarView";
+import ManageReviews from "../../components/ManageReviews";
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -31,16 +33,10 @@ const AdminDashboard = () => {
 
   const fetchData = async () => {
     try {
-      const resData = await axios.get(
-        "http://localhost:5000/api/v1/reservation/admin/all",
-        { withCredentials: true }
-      );
+      const resData = await api.get("/reservation/admin/all");
       setReservations(resData.data.reservations);
 
-      const statsData = await axios.get(
-        "http://localhost:5000/api/v1/analytics/admin/stats",
-        { withCredentials: true }
-      );
+      const statsData = await api.get("/analytics/admin/stats");
       setStats(statsData.data.stats);
     } catch (error) {
       toast.error("Failed to fetch admin data");
@@ -49,10 +45,9 @@ const AdminDashboard = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      const { data } = await axios.put(
-        `http://localhost:5000/api/v1/reservation/admin/update/${id}`,
-        { status },
-        { withCredentials: true }
+      const { data } = await api.put(
+        `/reservation/admin/update/${id}`,
+        { status }
       );
       toast.success(data.message);
       fetchData();
@@ -63,9 +58,7 @@ const AdminDashboard = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:5000/api/v1/user/logout", {
-        withCredentials: true,
-      });
+      await api.get("/user/logout");
       setIsAuthenticated(false);
       setUser(null);
       toast.success("Logged out successfully");
@@ -101,6 +94,9 @@ const AdminDashboard = () => {
           </button>
           <button className={activeTab === "calendar" ? "active" : ""} onClick={() => setActiveTab("calendar")}>
             <Calendar size={20} /> Booking Calendar
+          </button>
+          <button className={activeTab === "reviews" ? "active" : ""} onClick={() => setActiveTab("reviews")}>
+            <MessageSquare size={20} /> Reviews
           </button>
           <button onClick={handleLogout} className="logout-btn">
             <LogOut size={20} /> Logout
@@ -190,24 +186,23 @@ const AdminDashboard = () => {
                         </td>
                         <td>
                           <div className="action-buttons">
-                            {res.status === "Pending" && (
-                              <>
-                                <button 
-                                  onClick={() => updateStatus(res._id, "Approved")}
-                                  className="approve-btn"
-                                  title="Approve"
-                                >
-                                  <CheckCircle size={18} />
-                                </button>
-                                <button 
-                                  onClick={() => updateStatus(res._id, "Rejected")}
-                                  className="cancel-btn"
-                                  title="Reject"
-                                >
-                                  <XCircle size={18} />
-                                </button>
-                              </>
-                            )}
+                            <select 
+                              value={res.status} 
+                              onChange={(e) => updateStatus(res._id, e.target.value)}
+                              className="status-dropdown-update"
+                              style={{
+                                padding: "6px 12px",
+                                borderRadius: "6px",
+                                border: "1px solid var(--border-color)",
+                                background: "transparent",
+                                color: "var(--text-color)"
+                              }}
+                            >
+                              <option value="Pending">Pending</option>
+                              <option value="Confirmed">Confirmed</option>
+                              <option value="Completed">Completed</option>
+                              <option value="Cancelled">Cancelled</option>
+                            </select>
                           </div>
                         </td>
                       </tr>
@@ -222,7 +217,8 @@ const AdminDashboard = () => {
         {activeTab === "analytics" && <AdminAnalytics />}
         {activeTab === "orders" && <ManageOrders />}
         {activeTab === "branches" && <ManageBranches />}
-        {activeTab === "calendar" && <CalendarView reservations={reservations} />}
+        {activeTab === "calendar" && <CalendarView reservations={reservations} onUpdateStatus={updateStatus} />}
+        {activeTab === "reviews" && <ManageReviews />}
       </main>
     </div>
   );

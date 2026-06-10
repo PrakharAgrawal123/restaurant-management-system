@@ -27,6 +27,18 @@ const userSchema = new mongoose.Schema({
     enum: ["user", "admin"],
     default: "user",
   },
+  phoneNumber: {
+    type: String,
+    default: "",
+  },
+  address: {
+    type: String,
+    default: "",
+  },
+  avatar: {
+    type: String,
+    default: "",
+  },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
   createdAt: {

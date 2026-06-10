@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import { Mail, Key } from "lucide-react";
@@ -11,14 +11,10 @@ const ForgotPassword = () => {
   const handleForgot = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        "http://localhost:5000/api/v1/user/password/forgot",
-        { email },
-        { withCredentials: true }
-      );
+      const { data } = await api.post("/user/password/forgot", { email });
       toast.success(data.message);
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
 

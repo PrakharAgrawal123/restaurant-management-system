@@ -1,16 +1,31 @@
 import React, { useState } from "react";
 import { data } from "../restApi.json";
 import { Link as ScrollLink } from "react-scroll";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useAuth } from "../context/AuthContext";
 import { User, LogOut, Sun, Moon } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import api from "../utils/api";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, setIsAuthenticated, setUser } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
+
+  const handleNavbarLogout = async () => {
+    try {
+      await api.get("/user/logout");
+      setIsAuthenticated(false);
+      setUser(null);
+      toast.success("Logged out successfully");
+      navigate("/login");
+    } catch (error) {
+      toast.error("Logout failed");
+    }
+  };
 
   return (
     <nav>
@@ -31,13 +46,34 @@ const Navbar = () => {
           ))}
           
           {isAuthenticated ? (
-            <RouterLink 
-              to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
-              className="dashboard-link"
-              onClick={() => setShow(false)}
-            >
-              <User size={18} /> Dashboard
-            </RouterLink>
+            <>
+              <RouterLink 
+                to={user?.role === "admin" ? "/admin/dashboard" : "/dashboard"}
+                className="dashboard-link"
+                onClick={() => setShow(false)}
+                style={{ display: "flex", alignItems: "center", gap: "6px" }}
+              >
+                <User size={18} /> Dashboard
+              </RouterLink>
+              <button 
+                onClick={handleNavbarLogout}
+                className="nav-logout-btn"
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: "var(--secondary-text)",
+                  fontSize: "20px",
+                  fontWeight: "300",
+                  letterSpacing: "1.4px",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px"
+                }}
+              >
+                <LogOut size={18} /> Logout
+              </button>
+            </>
           ) : (
             <>
               <RouterLink to="/login" onClick={() => setShow(false)}>Login</RouterLink>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import toast from "react-hot-toast";
 import { Plus, Edit, Trash2, MapPin, Phone, Mail } from "lucide-react";
 
@@ -24,7 +24,7 @@ const ManageBranches = () => {
 
   const fetchBranches = async () => {
     try {
-      const { data } = await axios.get("http://localhost:4000/api/v1/branch/all");
+      const { data } = await api.get("/branch/all");
       setBranches(data.branches);
     } catch (error) {
       toast.error("Failed to fetch branches");
@@ -37,10 +37,10 @@ const ManageBranches = () => {
     e.preventDefault();
     try {
       if (editingBranch) {
-        await axios.put(`http://localhost:4000/api/v1/branch/update/${editingBranch._id}`, formData, { withCredentials: true });
+        await api.put(`/branch/update/${editingBranch._id}`, formData);
         toast.success("Branch updated");
       } else {
-        await axios.post("http://localhost:4000/api/v1/branch/new", formData, { withCredentials: true });
+        await api.post("/branch/new", formData);
         toast.success("Branch created");
       }
       setShowModal(false);
@@ -69,7 +69,7 @@ const ManageBranches = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this branch?")) {
       try {
-        await axios.delete(`http://localhost:4000/api/v1/branch/delete/${id}`, { withCredentials: true });
+        await api.delete(`/branch/delete/${id}`);
         toast.success("Branch deleted");
         fetchBranches();
       } catch (error) {

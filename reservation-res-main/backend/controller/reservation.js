@@ -2,6 +2,7 @@ import ErrorHandler from "../middlewares/error.js";
 import { Reservation } from "../models/reservation.js";
 import { Table } from "../models/table.js";
 import sendEmail from "../utils/sendEmail.js";
+import { createNotification } from "./notificationController.js";
 
 // Send Reservation
 export const send_reservation = async (req, res, next) => {
@@ -39,6 +40,13 @@ export const send_reservation = async (req, res, next) => {
       user: req.user._id 
     });
 
+    // Send in-app notification
+    await createNotification(
+      req.user._id,
+      "Reservation Placed",
+      `Your reservation request for ${date} at ${time} has been placed successfully.`
+    );
+
     // Send Confirmation Email
     try {
       await sendEmail({
@@ -75,6 +83,13 @@ export const updateReservationStatus = async (req, res, next) => {
 
     reservation.status = req.body.status;
     await reservation.save();
+
+    // Send in-app notification
+    await createNotification(
+      reservation.user,
+      "Reservation Status: " + reservation.status,
+      `Your reservation for ${reservation.date} at ${reservation.time} is now ${reservation.status}.`
+    );
 
     // Send Status Update Email
     try {

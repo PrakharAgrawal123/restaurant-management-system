@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-import axios from "axios";
+import api from "../utils/api";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -20,35 +20,50 @@ const Reservation = () => {
   
   const [branches, setBranches] = useState([]);
   const [tables, setTables] = useState([]);
+  const [branchesLoading, setBranchesLoading] = useState(true);
+  const [branchesError, setBranchesError] = useState(false);
+  const [tablesLoading, setTablesLoading] = useState(false);
   
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
+  const fetchBranches = async () => {
+    try {
+      setBranchesLoading(true);
+      setBranchesError(false);
+      const { data } = await api.get("/branch/all");
+      setBranches(data.branches);
+    } catch (error) {
+      console.error("Failed to fetch branches", error);
+      setBranchesError(true);
+      toast.error("Failed to load restaurant branches.");
+    } finally {
+      setBranchesLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchBranches = async () => {
-      try {
-        const { data } = await axios.get("http://localhost:5000/api/v1/branch/all");
-        setBranches(data.branches);
-      } catch (error) {
-        console.error("Failed to fetch branches");
-      }
-    };
     fetchBranches();
   }, []);
 
   useEffect(() => {
-    // This is a mock: In a real app, you'd fetch tables based on branch and availability
-    // For now, I'll generate some mock tables if a branch is selected
-    if (branch) {
-      setTables([
-        { _id: "t1", tableNumber: "1", capacity: 2, status: "Available" },
-        { _id: "t2", tableNumber: "2", capacity: 4, status: "Available" },
-        { _id: "t3", tableNumber: "3", capacity: 2, status: "Reserved" },
-        { _id: "t4", tableNumber: "4", capacity: 6, status: "Available" },
-        { _id: "t5", tableNumber: "5", capacity: 4, status: "Available" },
-        { _id: "t6", tableNumber: "6", capacity: 2, status: "Available" },
-      ]);
-    }
+    const fetchTables = async () => {
+      if (branch && date && time) {
+        try {
+          setTablesLoading(true);
+          const { data } = await api.get(`/table/branch/${branch}?date=${date}&time=${time}`);
+          setTables(data.tables);
+        } catch (error) {
+          console.error("Failed to fetch tables", error);
+          toast.error("Failed to load table layout.");
+        } finally {
+          setTablesLoading(false);
+        }
+      } else {
+        setTables([]);
+      }
+    };
+    fetchTables();
   }, [branch, date, time]);
 
   const handleReservation = async (e) => {
@@ -66,8 +81,8 @@ const Reservation = () => {
     }
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:5000/api/v1/reservation/send",
+      const { data } = await api.post(
+        "/reservation/send",
         { 
           firstName, 
           lastName, 
@@ -78,12 +93,6 @@ const Reservation = () => {
           branch, 
           numberOfGuests, 
           table 
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
         }
       );
       toast.success(data.message);
@@ -121,10 +130,18 @@ const Reservation = () => {
                   required
                   className="branch-select"
                 >
-                  <option value="">Select Branch</option>
-                  {branches.map(b => (
-                    <option key={b._id} value={b._id}>{b.name} - {b.location}</option>
-                  ))}
+                  {branchesLoading ? (
+                    <option value="">Loading branches...</option>
+                  ) : branchesError ? (
+                    <option value="">Error loading branches. Click to reload.</option>
+                  ) : (
+                    <>
+                      <option value="">Select Branch</option>
+                      {branches.map(b => (
+                        <option key={b._id} value={b._id}>{b.name} - {b.location}</option>
+                      ))}
+                    </>
+                  )}
                 </select>
                 <input
                   type="number"
