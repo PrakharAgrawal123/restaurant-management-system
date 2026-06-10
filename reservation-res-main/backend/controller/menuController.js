@@ -27,6 +27,22 @@ export const getAllMenuItems = async (req, res, next) => {
   }
 };
 
+// Get Single Menu Item Details
+export const getSingleMenuItem = async (req, res, next) => {
+  try {
+    const menuItem = await Menu.findById(req.params.id);
+    if (!menuItem) {
+      return next(new ErrorHandler("Menu Item not found", 404));
+    }
+    res.status(200).json({
+      success: true,
+      menuItem,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 // Update Menu Item (Admin)
 export const updateMenuItem = async (req, res, next) => {
   try {

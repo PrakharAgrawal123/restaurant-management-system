@@ -10,6 +10,7 @@ import ForgotPassword from './Pages/Auth/ForgotPassword';
 import UserDashboard from './Pages/Dashboard/UserDashboard';
 import AdminDashboard from './Pages/Dashboard/AdminDashboard';
 import MenuPage from './Pages/Home/MenuPage';
+import FoodDetails from './Pages/Home/FoodDetails';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css'
 
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='/register' element={<Register/>}/>
           <Route path='/password/forgot' element={<ForgotPassword/>}/>
           <Route path='/menu' element={<MenuPage/>}/>
+          <Route path='/menu/:id' element={<FoodDetails/>}/>
           
           <Route 
             path='/dashboard' 
