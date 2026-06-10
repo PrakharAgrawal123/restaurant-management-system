@@ -22,32 +22,48 @@ const Testimonials = () => {
   }, []);
 
   // Default reviews if DB is empty
-  const defaultReviews = [
-    {
-      _id: "def1",
-      user: { name: "Jane Cooper" },
-      feedback: "The roasted lamb rump was absolutely succulent and perfectly cooked. The ambience of the restaurant created a highly pleasant evening.",
-      foodRating: 5,
-      serviceRating: 4,
-      ambienceRating: 5
-    },
-    {
-      _id: "def2",
-      user: { name: "Esther Howard" },
-      feedback: "Impeccable service! The staff was extremely polite and recommendations were spot on. Will definitely visit Miami branch again.",
-      foodRating: 4,
-      serviceRating: 5,
-      ambienceRating: 5
-    },
-    {
-      _id: "def3",
-      user: { name: "Guy Hawkins" },
-      feedback: "An absolute culinary delight. The fusion of flavors was unique and outstanding. Highly recommended for family dining.",
-      foodRating: 5,
-      serviceRating: 5,
-      ambienceRating: 4
-    }
-  ];
+ const defaultReviews = [
+  {
+    _id: "def1",
+    user: { name: "Rahul Sharma" },
+    feedback: "Food was really delicious and the service was excellent. We booked a table for a family dinner and everything was well managed. The ambience was also very pleasant.",
+    foodRating: 5,
+    serviceRating: 5,
+    ambienceRating: 4
+  },
+  {
+    _id: "def2",
+    user: { name: "Priya Verma" },
+    feedback: "I visited with my friends and we had a great experience. The staff was polite, the food arrived on time, and the restaurant was very clean. Highly recommended.",
+    foodRating: 4,
+    serviceRating: 5,
+    ambienceRating: 5
+  },
+  {
+    _id: "def3",
+    user: { name: "Amit Singh" },
+    feedback: "One of the best dining experiences I've had recently. The food quality was amazing and the reservation process was very smooth. Will definitely visit again.",
+    foodRating: 5,
+    serviceRating: 4,
+    ambienceRating: 5
+  },
+  {
+    _id: "def4",
+    user: { name: "Sneha Gupta" },
+    feedback: "The restaurant has a wonderful atmosphere and the staff is very cooperative. Perfect place for family gatherings and celebrations.",
+    foodRating: 5,
+    serviceRating: 5,
+    ambienceRating: 5
+  },
+  {
+    _id: "def5",
+    user: { name: "Vikram Patel" },
+    feedback: "Good food, reasonable pricing, and quick service. The online reservation feature made the whole experience hassle-free.",
+    foodRating: 4,
+    serviceRating: 4,
+    ambienceRating: 5
+  }
+];
 
   const activeReviews = reviews.length > 0 ? reviews : defaultReviews;
 
