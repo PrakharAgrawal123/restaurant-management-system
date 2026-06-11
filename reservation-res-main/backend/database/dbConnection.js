@@ -11,7 +11,7 @@ export const dbConnection = () => {
       seedData(); // Run auto-seeding
     })
     .catch((err) => {
-      console.log(`Some error occured while connecing to database: ${err}`);
+      console.log(`Some error occured while connecing to database: ${err}`); //when the error occured 
     });
 };
 
